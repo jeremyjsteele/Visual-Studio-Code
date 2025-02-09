@@ -1,0 +1,3 @@
+NPA
+formidable
+upper-case

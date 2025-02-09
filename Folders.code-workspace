@@ -1,0 +1,18 @@
+{
+    "folders": [
+        {
+            "name": "GitHub",
+            "path": "GitHub"
+        },
+        {
+            "name": "SiteDev",
+            "path": "SiteDev"
+        },
+        {
+            "path": "../.vscode"
+        }
+    ],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "SiteDev"
+    }
+}

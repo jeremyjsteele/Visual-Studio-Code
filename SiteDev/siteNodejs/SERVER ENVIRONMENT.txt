@@ -1,0 +1,461 @@
+SERVER ENVIRONMENT
+Infrastruction to host and manage network configurations and communications for applications 
+
+cmd	command prompt		function		request 		respond		output
+				command	drive
+						users
+						directory	
+						folder
+				access node.js	node		run file.js
+				install		files
+				npm		modules
+						packages		install 
+
+NODE.JS	Runs JavaScript
+		Generates dynamic page content
+		Create, open, read, write, delete, and close files
+			Collect form data
+		Add, delete, and modify data in database
+
+( ) - Call or invoke functions and passing arguments
+{ } - Create object
+
+NPM NODE PACKAGE MANAGER
+Files needed for modules
+
+npm	node package manager	function		request 		respond		output
+				install 		var uc object	module		npm	
+npm	install	
+	formidable 		file uploads	var formidable	module		formidable
+	nodemailer 		send emails	var nodemailer	module		nodemailer		
+	mysql			database		var mysql		module
+	upper-case		capitalize text	var uc		module		uc
+
+	var http = require('http');
+	var uc = require('upper-case');
+	http.createServer(function (req, res) {
+  		res.writeHead(200, {'Content-Type': 'text/html'});
+  		res.write(uc.upperCase("Hello World!"));
+  		res.end();
+		}).listen(8080);
+
+MODULES 
+Reusable objects with methods and properties
+
+http	createServer	function		request 		response		output
+			require		http
+			status code	found		200
+					writeHead	Content-Type  	text/html  
+									err
+							not found 	404		
+					end		text/html
+					listen 		Port 8080 		
+	var http = require(‘http’);
+		http.createServer(function (req, res) {
+			res.writeHead(200, {‘Content-Type’ : ‘text/html’});
+			res.end(‘Text’);
+			}).listen(8080);
+
+fs	file system	function		request		response		output
+			require		var fs object	module		fs		
+					
+	var fs=require(‘fs’);				
+			read		find filename			output 
+									err		
+							write		data		file
+							return		end
+	var http = require(‘http’);
+	var fs = require(‘fs’);
+		http.createServer(function (req, res) {
+			fs.readFile(‘file.html’, function(err, data) {
+			res.writeHead(200, {‘Content-Type’ : ‘text/html’});
+			res.write(data);
+			return res.end();
+			});
+			}).listen(8080);
+
+fs	file system	function		request		response		output
+			add file		append		new file		file 		w/content
+											new file
+									log		text
+									err		
+	fs.appendFile();
+
+	var http = require(‘http’);  //not needed
+	var fs = require(‘fs’);
+		http.createServer(function (req, res) { //not needed
+			fs.appendFile(‘newFile.txt’, ‘Content’, function (err) {
+			if (err) throw err;
+			console.log(‘Saved New File!’);
+			});
+			}).listen(8080); //not needed
+
+fs	file system	function		request		response		output
+			add file		open		new file		file 		for writing		
+											new file
+									log		text
+									err
+	fs.open()
+
+	var http = require(‘http’);  //not needed
+	var fs = require(‘fs’);
+	http.createServer(function (req, res) { //not needed
+	fs.open(‘newWriteFile.txt’, ‘w’, function (err, file) {
+		if (err) throw err;
+		console.log(‘Saved File for Writing!’);
+		});
+		}).listen(8080); //not needed 
+
+fs	file system	function		request		response		output
+			replace file	write		new file		file 		w/New Content
+									new file
+									log		text
+	fs.writeFile()
+
+	var http = require(‘http’);  //not needed
+	var fs = require('fs');
+		fs.writeFile('newContentFile.txt', 'Hello New File Content!', function (err) {
+  			if (err) throw err;
+			console.log('Saved File with New Content!');
+			});
+
+fs	file system	function		request		response		output
+			delete file		unlink		delete		log		text
+	fs.unlinkFile()
+	
+	var fs = require('fs');
+	fs.unlink(‘newContentFile.txt’, function (err) {
+		if (err) throw err;
+		console.log(‘newContentFile.txt Deleted!’);
+		});
+
+fs	file system	function		request		response		output
+			rename file	rename		name		log		text
+	fs.rename()
+
+	var fs = require('fs');
+	fs.rename('final.txt', 'newFile.txt', function (err) {
+ 		if (err) throw err;
+  		console.log('File Renamed!');
+		});
+
+url	web address	function		request		response		output
+			require		var url object	module		url 
+	var url = require()
+
+	var url = require('url');	
+
+url	web address	function		request		response		output
+			require		var url object	module		url
+			parse		var adr object	address		adr
+			query properties	var q object	data to query	properties
+			query parts	var qdata		parts of properties	parts
+	
+	var url = require('url');
+	var adr = 'http://localhost:8080/default.htm?year=2017&month=february';
+	var q = url.parse(adr, true);
+
+		console.log(q.host); //returns 'localhost:8080'
+		console.log(q.pathname); //returns '/default.htm'
+		console.log(q.search); //returns '?year=2017&month=february'
+
+	var qdata = q.query; //returns an object: { year: 2017, month: 'february' }
+		console.log(qdata.month); //returns 'february'
+
+fs	file system	function		request		response		output
+			require		var url object	module		url
+			parse		var adr object	address		adr
+			query properties	var q object	data to query	properties
+			query parts	var qdata		parts of properties	parts
+					var filename	object		file name in directory	
+							add to pathname	file name in pathname	
+			read file		pathname	address		file content		data
+									err
+							not found 	404
+							return		end
+							listen 		port 8080							
+	var http = require('http');
+	var url = require('url');
+	var fs = require('fs');
+
+	http.createServer(function (req, res) {
+ 	var q = url.parse(req.url, true);
+  	var filename = "." + q.pathname;
+ 	 fs.readFile(filename, function(err, data) {
+    		if (err) {
+      		res.writeHead(404, {'Content-Type': 'text/html'});
+      		return res.end("404 Not Found");
+   		 } 
+   		res.writeHead(200, {'Content-Type': 'text/html'});
+    		res.write(data);
+    		return res.end();
+  		});
+		}).listen(8080);	
+
+EVENTS
+Actions and connection
+
+rs	readStream	function		request		response		output
+			create		var rs		object		readStream	
+			on		open		event		log		text
+
+	var fs = require('fs');
+	var rs = fs.createReadStream('./demofile.txt');
+		rs.on('open', function () {
+ 		console.log('The file is open');
+		});
+
+events	eventEmitter	function		request		response		output
+			require		var events	module		events
+			assign		var eventEmitter	method		events.eventEmitter
+			create		var eventHandler	object		eventHandler
+					on		method		event for eventHandler
+					emit		method		event				
+	var events = require('events');
+	var eventEmitter = new events.EventEmitter();
+
+	var myEventHandler = function () {
+  		console.log('I hear a scream!');
+		}
+
+	eventEmitter.on('scream', myEventHandler);
+
+	eventEmitter.emit('scream');
+
+file folder		formidable	function		request		response		output
+				require		var formidable	module		formidable
+
+upload file	uploadForm	function		request		response		output
+			 	writeHead	content type	200		text/html	
+				write		html				
+				action		fileupload		method		post
+						enctype		field
+				input field		type
+						name							
+				upload		file		
+				submit						form		
+				analyze		file		parse		temp folder		
+								log		text
+								listen		port 8080	
+save file										File uploaded
+	var http = require('http');
+	var formidable = require('formidable');
+
+	http.createServer(function (req, res) {
+ 	 	if (req.url == '/fileupload') {
+    		var form = new formidable.IncomingForm();
+    		form.parse(req, function (err, fields, files) {
+      		res.write('File uploaded');
+      		res.end();
+    		});
+ 		 } else {
+  	  	res.writeHead(200, {'Content-Type': 'text/html'});
+    		res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+    		res.write('<input type="file" name="filetoupload"><br>');
+    		res.write('<input type="submit">');
+    		res.write('</form>');
+    		return res.end();
+  		}
+	}).listen(8080);
+
+save file		file system	function		request		response		output
+				save filepath	var oldpath	object		assign	
+						var newpath	object		assign
+								rename		filepath
+								log		text
+	var http = require('http');
+	var formidable = require('formidable');
+	var fs = require('fs');
+
+	http.createServer(function (req, res) {
+  		if (req.url == '/fileupload') {
+   		var form = new formidable.IncomingForm();
+    		form.parse(req, function (err, fields, files) {
+     		var oldpath = files.filetoupload.filepath;
+      		var newpath = 'C:/Users/Your Name/' + files.filetoupload.originalFilename;
+      		fs.rename(oldpath, newpath, function (err) {
+        			if (err) throw err;
+        			res.write('File uploaded and moved!');
+        			res.end();
+      			});
+ 	});
+  		} else {
+    			res.writeHead(200, {'Content-Type': 'text/html'});
+    			res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+    			res.write('<input type="file" name="filetoupload"><br>');
+    			res.write('<input type="submit">');
+    			res.write('</form>');
+    			return res.end();
+  		}
+	}).listen(8080);
+
+send email	nodemailer	function		request		response		output
+				require		var nodemailer	object		nodemailer
+				serve		var transporter	object		transporter
+						service		connect
+						user		identify
+						password	access
+				format		var mailOptions	
+						from email
+						to email, email	
+						subject text 
+						text/html 		
+	var nodemailer = require('nodemailer');
+
+	var transporter = nodemailer.createTransport({
+  		service: 'gmail',
+  		auth: {
+    			user: 'youremail@gmail.com',
+    			pass: 'yourpassword'
+  			}
+		});
+
+	var mailOptions = {
+  		from: 'youremail@gmail.com',
+  		to: 'myfriend@yahoo.com',
+  		subject: 'Sending Email using Node.js',
+  		text/html: 'That was easy!'
+		};
+
+	transporter.sendMail(mailOptions, function(error, info){
+  		if (error) {
+    			console.log(error);
+ 		 } else {
+    			console.log('Email sent: ' + info.response);
+  		}
+		});
+
+MYSQL
+Database application 
+
+mysql	application	function		request		response		output	
+	shell		\connect	 	developer@	
+					localhost:3306	
+					password	create		session				
+					
+	workbench	query statement	alter user		developer access	mysql database		
+	
+	node access 	function		request		response		output
+			require		var mysql		object		mysql
+			connection	var con		object		con	
+					host,
+					username,
+					password,	
+					database
+	query		access		connect		log		text						 						
+
+	var mysql = require('mysql');
+
+	var con = mysql.createConnection({
+ 		host: "localhost",
+  		user: "developer",
+  		password: "SQL@Js09151978"
+		});
+
+		con.connect(function(err) {
+  			if (err) throw err;
+  			console.log("Connected!");
+  			con.query(sql, function (err, result) {
+    			if (err) throw err;
+    			console.log("Result: " + result);
+  			});
+		});
+
+mydb	database		function		request		response		output
+			create database	query		return result	mydb
+							log		text
+	var mysql = require('mysql');
+
+	var con = mysql.createConnection({
+  		host: "localhost",
+  		user: "developer",
+  		password: "SQL@Js09151978"
+		});
+
+		con.connect(function(err) {
+  			if (err) throw err;
+  			console.log("Connected!");
+ 			con.query("CREATE DATABASE new", function (err, result) {
+    			if (err) throw err;
+    			console.log("Database created");
+  			});
+		});
+
+	table		function		request		response		output
+			create table	query		return result	
+			create column	name		255 characters
+			create column	address		255 characters	table
+			create column	primary key 	number record	id
+	
+		var mysql = require('mysql');
+
+		var con = mysql.createConnection({
+  			host: "localhost",
+  			user: "developer",
+  			password: "SQL@Js09151978",
+  			database: "new"
+			});
+			con.connect(function(err) {
+  			if (err) throw err;
+  			console.log("Connected!");
+ 	insert		var sql = "CREATE TABLE members (name VARCHAR(255), address VARCHAR(255))";
+	primary key	var sql = "CREATE TABLE members (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), address VARCHAR(255))";
+  	one record	var sql = "INSERT INTO members (name, address) VALUES ('name1', 'address1')";
+			var sql = "INSERT INTO members (name, address) VALUES ('name1', 'address1')";
+	multiple records	var sql = "INSERT INTO members (name, address) VALUES ?";
+ 		values	var values = [
+   		record 1	 	['name1', 'address1'],
+    		record 2		['name2', 'address2'],
+    			];
+			con.query(sql, function (err, result) {
+    				if (err) throw err;
+    			console.log("Table created with primary key ids start at 0");
+		id record	console.log("Table created with primary key id" + result.insertId);
+  				});
+			}); 
+
+	query
+
+		var mysql = require('mysql');
+
+		var con = mysql.createConnection({
+ 	 		host: "localhost",
+  			user: "developer",
+  			password: "SQL@Js09151978",
+  			database: "new"
+			});
+
+			con.connect(function(err) {
+  			if (err) throw err;
+  	select from	con.query("SELECT * FROM members", function (err, result, fields) {
+	select columns	con.query("SELECT name, address FROM members", function (err, result, fields) {
+	where record	con.query("SELECT * FROM members WHERE address = address1'", function (err, result) {	 
+	record includes	con.query("SELECT * FROM members WHERE address LIKE 'S%'", function (err, result) {
+			if (err) throw err;
+    			console.log(result);
+	field object 	console.log(fields);
+	field 		console.log(fields[1].name);	//name of second heading
+	heading		address 
+	result object	console.log(result[0].address); //address of first record
+	result		address1
+  				});
+			});
+	
+	escape 	var name = 'name1';
+		var adr = 'address1';
+		var sql = 'SELECT * FROM members WHERE name = ? OR address = ?';
+		con.query(sql, [name, adr], function (err, result) {
+  		if (err) throw err;
+  		console.log(result);
+		});
+
+
+
+
+
+
+
+
+
+
+

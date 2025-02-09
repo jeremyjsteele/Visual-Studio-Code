@@ -1,0 +1,7 @@
+PHONE:  Moto G Power
+Net:    WiFi
+Host:   localhost
+
+IP Address: 192.168.254.72
+Live Server Port:       5500
+Node JS Standard Port:  8800
