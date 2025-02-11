@@ -38,9 +38,9 @@
 		"mtxr.sqltools"
 	],
 	"activationEvents": [
-		"*",
 		"onLanguage:sql",
-		"onCommand:sqltools.*"
+		"onCommand:sqltools.*",
+    	"onStartupFinished"
 	],
 	"main": "./out/extension.js",
 	"scripts": {
