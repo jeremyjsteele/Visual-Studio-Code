@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Home",
+			"path": "../Home"
+		},
+		{
+			"name": "Visual Studio Code",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
